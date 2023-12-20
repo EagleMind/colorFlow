@@ -8,7 +8,7 @@ interface ColorOption {
     label: string;
     value: string;
 }
-
+// This a provisional feature and still not implemented , might not be that useful.
 const PureColorsPicker: React.FC<ChildProps> = ({ onDataSend }) => {
     const [selectedColor, setSelectedColor] = useState<string>("");
 
