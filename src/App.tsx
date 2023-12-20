@@ -32,7 +32,6 @@ const App: React.FC<AppProps> = () => {
 
   useEffect(() => {
     const randomColorPairs = generateAnalogousPairs(!getCount ? 1 : getCount, colorBase, colorTarget, getLerp, 30);
-    console.log(randomColorPairs)
     setData(randomColorPairs);
   }, [getLerp, getDegree, getCount, colorBase, colorTarget,]);
 

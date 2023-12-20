@@ -1,7 +1,9 @@
 
+import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { PaletteArray } from "../types/ColorPair";
 import { AspectRatio } from "./aspectRatio"
 import Gradient from "./gradient";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export interface Pallet {
     from: number;
     to: number;
@@ -13,8 +15,9 @@ const Palettes = (props: Pallet) => {
             <AspectRatio ratio={1 / 1} >
                 <Gradient angle={135} {...props} />
             </AspectRatio>
-            <figcaption className="palette__caption">
-                {props.index} {props.from} – {props.to}
+            <figcaption className="flex p-5 justify-center">
+                {props.from} – {props.to}
+
             </figcaption>
         </figure>
     );
@@ -23,10 +26,9 @@ const Palettes = (props: Pallet) => {
 
 
 const Palette = (props: PaletteArray) => {
-    console.log(props.palettes)
 
     return (
-        <div className="palettes ">
+        <div className="grid grid-cols-6 gap-5 fr md:grid-cols-repeat-auto-fill gap-3em ">
             {props.palettes.map((palette: any, index: number) => (
                 <Palettes index={index} key={index} {...palette} />
             ))}
