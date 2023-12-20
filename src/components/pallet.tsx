@@ -1,9 +1,7 @@
 
-import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { PaletteArray } from "../types/ColorPair";
 import { AspectRatio } from "./aspectRatio"
 import Gradient from "./gradient";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export interface Pallet {
     from: number;
     to: number;

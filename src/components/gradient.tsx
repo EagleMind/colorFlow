@@ -29,12 +29,11 @@ export default function Gradient({ angle = 0, from, to }: Gradient) {
             }}
             onClick={handleCopy}
         >
-            <div className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+            <div className="absolute  w-full h-full  transition-opacity duration-300 opacity-0 hover:opacity-100 top-0 left-0 right-0 bottom-0 flex items-center justify-center">
                 <FontAwesomeIcon
                     icon={faCopy}
                     fontSize={30}
                     color="white"
-                    className={`p-3 ${isClicked ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
                 />
             </div>
         </div>
