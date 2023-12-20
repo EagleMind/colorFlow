@@ -22,7 +22,7 @@ npm install
 
 ## Example: Generating Analogous Color Pairs
 
-```bash
+
 import { generateAnalogousPairs, AnalogousDirection } from './colorGenerator';
 
 const analogousPairs = generateAnalogousPairs(5, 0.5, 30, AnalogousDirection.Clockwise, '#3498db', '#e74c3c');
@@ -30,12 +30,12 @@ console.log(analogousPairs);
 
 ## Example: Generating Pastel Color Pairs
 
-```bash
+
 import { generatePastelPairs } from './colorGenerator';
 
 const pastelPairs = generatePastelPairs(5, 0.5, true);
 console.log(pastelPairs);
-
+```bash
 
 ## Configuration
 Adjust the parameters in the function calls to customize the color generation process according to your needs.
