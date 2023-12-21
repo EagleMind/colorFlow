@@ -57,3 +57,6 @@ npm install
 # On the long run
 - will automate the usage between designers & devs (eg: tailwind config generation)
 - will setup authentication & rating to build a community dynamic over the solution
+
+# For collaboration :
+contact: hassen.ben.mbarek@gmail.com
