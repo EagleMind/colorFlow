@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 interface ChildProps {
-    onDataSend: (color: number) => void;
+    onDataSend: (value: any) => void;
     min: number;
     max: number;
 }
@@ -17,13 +17,12 @@ export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max }) => 
 
     return (
         <div className="flex items-center w-full">
-            <p className="mx-5  text-center">{value.toFixed(1)}</p>
+            <p className="mx-5  text-center">{value.toFixed()}</p>
 
             <input
                 type="range"
                 min={min}
                 max={max}
-                step="0.1"
                 value={value}
                 onChange={handleSliderChange}
                 className="w-full  appearance-none rounded-full h-2 bg-blue-200 outline-none"

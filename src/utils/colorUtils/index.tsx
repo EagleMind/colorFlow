@@ -88,9 +88,17 @@ export function interpolateColors(color1: string, color2: string, lerp: number, 
         b: Math.round(rgbColor1.b + direction * lerp * (rgbColor2.b - rgbColor1.b)),
     };
 
+    // Ensure that the resulting hex values are formatted correctly
+    const formattedColor = {
+        r: Math.min(255, Math.max(0, interpolatedColor.r)),
+        g: Math.min(255, Math.max(0, interpolatedColor.g)),
+        b: Math.min(255, Math.max(0, interpolatedColor.b)),
+    };
+
     // Convert back to hex
-    return rgbToHex(interpolatedColor);
+    return rgbToHex(formattedColor);
 }
+
 // Helper function to adjust hue dynamically
 export function adjustHue(hexColor: string, angle: number): string {
     const rgbColor = hexToRgb(hexColor);

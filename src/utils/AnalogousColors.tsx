@@ -8,25 +8,25 @@ export enum AnalogousDirection {
 
 export function generateAnalogousPairs(
     count: number,
-    baseColor: string,
-    targetColor: string,
+    baseColor1: string,
+    baseColor2: string,
     lerp: number,
     shiftAngle: number,
-    direction: AnalogousDirection = AnalogousDirection.Clockwise,
+    direction: AnalogousDirection = AnalogousDirection.CounterClockwise,
 
 ): { from: string; to: string }[] {
     const colorPairs = [];
 
     for (let i = 0; i < count; i++) {
         // Interpolate between the two input base colors
-        const baseCol = interpolateColors(baseColor, targetColor, i / (count - 1), true);
+        const baseColor = interpolateColors(baseColor1, baseColor2, i / (count - 1), true);
 
         // Calculate analogous colors
-        const analogousColors = calculateAnalogousColors(baseCol, shiftAngle, direction);
+        const analogousColors = calculateAnalogousColors(baseColor, shiftAngle, direction);
 
         // Interpolate between the base color and analogous colors
         const interpolatedColors = analogousColors.map((analogousColor) =>
-            interpolateColors(baseCol, analogousColor, lerp, true)
+            interpolateColors(baseColor, analogousColor, lerp, true)
         );
 
         colorPairs.push({ from: interpolatedColors[0], to: interpolatedColors[1] });
