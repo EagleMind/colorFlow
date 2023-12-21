@@ -22,16 +22,6 @@ generateAnalogousPairs: Parameters include count, lerp, shiftAngle, direction, b
 
 generatePastelPairs: Parameters include count, lerp, and direction.
 
-## Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/your-username/color-generation-project.git
-cd color-generation-project
-npm install
-
-
 ## Example: Generating Analogous Color Pairs
 
 
@@ -48,3 +38,25 @@ import { generatePastelPairs } from './colorGenerator';
 const pastelPairs = generatePastelPairs(5, 0.5, true);
 console.log(pastelPairs);
 
+
+## Installation
+
+Clone the repository:
+
+```
+git clone https://github.com/your-username/color-generation-project.git
+cd color-generation-project
+npm install
+```
+# Coming soon
+
+- Redux
+- Swith between types (analogous / pastel / monochromatic colors)
+
+
+# On the long run
+- will automate the usage between designers & devs (eg: tailwind config generation)
+- will setup authentication & rating to build a community dynamic over the solution
+
+# For collaboration :
+contact: hassen.ben.mbarek@gmail.com
