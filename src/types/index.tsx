@@ -24,6 +24,8 @@ export interface MonochromaticGenInput {
 }
 export type ColorGeneratorSelectorProps = {
     onTypeChange: (type: string) => void;
+    colorGenerators: any;
+
 };
 export interface colorGenerator {
     generatorFunction: (baseColor: string, count: number) => MonochromaticColorObject[];
