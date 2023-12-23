@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 interface ChildProps {
     onDataSend: (value: any) => void;
     min: number;
@@ -7,9 +7,11 @@ interface ChildProps {
 
 export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max }) => {
     const [value, setValue] = useState(0);
-    if (onDataSend) {
-        onDataSend(value)
-    }
+    useEffect(() => {
+        if (onDataSend) {
+            onDataSend(value);
+        }
+    }, [onDataSend, value]);
     const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = parseFloat(event.target.value);
         setValue(newValue);

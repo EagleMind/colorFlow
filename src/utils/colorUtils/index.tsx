@@ -98,17 +98,47 @@ export function interpolateColors(color1: string, color2: string, lerp: number, 
     // Convert back to hex
     return rgbToHex(formattedColor);
 }
-
-// Helper function to adjust hue dynamically
-export function adjustHue(hexColor: string, angle: number): string {
+// Helper function to adjust hue
+export function adjustHue(hexColor: string, adjustment: number): string {
     const rgbColor = hexToRgb(hexColor);
     const hslColor = rgbToHsl(rgbColor);
 
-    // Adjust hue dynamically
-    hslColor.h += angle;
+    // Adjust hue
+    hslColor.h += adjustment;
 
-    // Normalize hue to the range [0, 360)
+    // Wrap hue around (0 - 360)
     hslColor.h = (hslColor.h + 360) % 360;
+
+    // Convert back to hex
+    return rgbToHex(hslToRgb(hslColor));
+}
+// Helper function to adjust lightness
+export function adjustLightness(hexColor: string, adjustment: number): string {
+    const rgbColor = hexToRgb(hexColor);
+    const hslColor = rgbToHsl(rgbColor);
+
+    // Adjust lightness
+    hslColor.l += adjustment;
+
+    // Clamp lightness to the valid range (0 - 100)
+    hslColor.l = Math.max(0, Math.min(100, hslColor.l));
+
+    // Convert back to hex
+    return rgbToHex(hslToRgb(hslColor));
+}
+
+
+
+// Helper function to adjust saturation
+export function adjustSaturation(hexColor: string, adjustment: number): string {
+    const rgbColor = hexToRgb(hexColor);
+    const hslColor = rgbToHsl(rgbColor);
+
+    // Adjust saturation
+    hslColor.s += adjustment;
+
+    // Clamp saturation to the valid range (0 - 100)
+    hslColor.s = Math.max(0, Math.min(100, hslColor.s));
 
     // Convert back to hex
     return rgbToHex(hslToRgb(hslColor));

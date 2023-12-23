@@ -11,28 +11,34 @@ export function generateAnalogousPairs(
     baseColor1: string,
     baseColor2: string,
     lerp: number,
-    shiftAngle: number,
+    shiftAngle: number = 90,
     direction: AnalogousDirection = AnalogousDirection.CounterClockwise,
-
+    Isinterpolated: boolean
 ): { from: string; to: string }[] {
     const colorPairs = [];
 
     for (let i = 0; i < count; i++) {
-        // Interpolate between the two input base colors
-        const baseColor = interpolateColors(baseColor1, baseColor2, i / (count - 1), true);
+        if (Isinterpolated) {
+            // Interpolate between the two input base colors
+            const baseColor = interpolateColors(baseColor1, baseColor2, i / (count - 1), true);
 
-        // Calculate analogous colors
-        const analogousColors = calculateAnalogousColors(baseColor, shiftAngle, direction);
+            // Calculate analogous colors
+            const analogousColors = calculateAnalogousColors(baseColor, shiftAngle, direction);
 
-        // Interpolate between the base color and analogous colors
-        const interpolatedColors = analogousColors.map((analogousColor) =>
-            interpolateColors(baseColor, analogousColor, lerp, true)
-        );
+            // Interpolate between the base color and analogous colors
+            const interpolatedColors = analogousColors.map((analogousColor) =>
+                interpolateColors(baseColor, analogousColor, lerp, true)
+            );
+            colorPairs.push({ from: interpolatedColors[0], to: interpolatedColors[1] });
+        } else {
+            // Calculate analogous colors
+            const analogousColors = calculateAnalogousColors(baseColor1, shiftAngle, direction);
+            colorPairs.push({ from: analogousColors[0], to: analogousColors[1] });
+        }
 
-        colorPairs.push({ from: interpolatedColors[0], to: interpolatedColors[1] });
     }
+    return colorPairs
 
-    return colorPairs;
 }
 
 // Calculate analogous colors based on the direction and shift angle

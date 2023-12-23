@@ -4,15 +4,15 @@ import { useState } from "react";
 
 export interface Gradient {
     angle: number;
-    from: number;
-    to: number;
+    from?: number;
+    to?: number;
 }
 
 export default function Gradient({ angle = 0, from, to }: Gradient) {
     const [isClicked, setIsClicked] = useState(false);
 
     const handleCopy = () => {
-        navigator.clipboard.writeText(`${from.toString()} - ${to.toString()}`);
+        navigator.clipboard.writeText(`${from?.toString()} - ${to?.toString()}`);
         setIsClicked(true);
 
         setTimeout(() => {
