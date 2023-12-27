@@ -47,15 +47,15 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
 
 
             <div className='flex flex-col bg-gray-100 p-5 border rounded-md'>
-                <h3 className="text-lg font-semibold">Choose Colors</h3>
-                <div className='flex'>
+                <h3 className="text-lg font-semibold ">Choose Colors</h3>
+                <div className='flex my-2'>
                     {naturalOptionSelector('baseColorOne')}
                     {naturalOptionSelector('baseColorTwo')}
                 </div>
 
             </div>
             {props.selectedGenerator.name === "monochromatic" ? null : <div className='flex flex-col bg-gray-100 p-5 border rounded-md md:w-1/3 mx-5'>
-                <h3 className="text-lg font-semibold self-start">Choose Options</h3>
+                <h3 className="text-lg font-semibold self-start ">Choose Options</h3>
                 {naturalOptionSelector('count')}
                 {naturalOptionSelector('adjustHue')}
                 {naturalOptionSelector('lerp')}
