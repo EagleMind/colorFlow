@@ -1,61 +1,104 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { MonoChromaticColorsView } from './components/pallet';
-import { colorGenerators } from './utils/MainGenSource';
+import { AnalogousColorsView, MonoChromaticColorsView } from './components/pallet';
 import { GeneratorOptions } from './components/GeneratorOptions';
-import { ColorGeneratorSelector } from './utils/colorUtils/ColorGeneratorSelector';
+import GeneratorSelector from './utils/colorUtils/ColorGeneratorSelector';
+import { Generator } from './types';
 
 
 const App: React.FC = () => {
 
-  const [data, setData] = useState<string[]>([]);
+  const [data, setData] = useState<any[]>([]);
   const [getLerp, setLerp] = useState<number>(0);
-  const [getGradDirection, setGradeDirection] = useState<number>(0);
-  const [getShiftAngle, setShiftAngle] = useState<number>(0);
+  const [getGradDirection, setGradeDirection] = useState<boolean>(false);
+  const [getAdjustHue, setAdjustHue] = useState<number>(0);
   const [getCount, setCount] = useState<number>(0);
-  const [Isinterpolated, setIsinterpolated] = useState<boolean>(false);
-  const [colorGeneratorType, setColorGeneratorType] = useState<string>(Object.keys(colorGenerators)[0]);
-  const [baseColorOne, setBaseColor1] = useState<string>('');
-  const [baseColorTwo, setBaseColor2] = useState<string>('');
-  const [selectedGenerator, setSelectedGenerator] = useState<number>();
+  const [generateSingleColor, setGenerateSingleColor] = useState<boolean>(false);
+  const [baseColorOne, setBaseColorOne] = useState<string>('');
+  const [baseColorTwo, setBaseColorTwo] = useState<string>('');
+  const [selectedGenerator, setSelectedGenerator] = useState<Generator | null>(null);
+
+  const handleSelectGenerator = (generator: Generator) => {
+    setSelectedGenerator(generator);
+    setData([])
+  };
+
   const handleCount = (data: number = 1) => {
     setCount(data);
   };
+
   const handleLerp = (data: number) => {
     setLerp(data);
   };
-  const handleGradDirection = (data: number) => {
+  const handleGradDirection = (data: boolean) => {
     setGradeDirection(data);
   };
-
-  const handleSelectBaseColor1 = (data: string) => {
-    setBaseColor1(data);
-  };
-  const handleSelectBaseColor2 = (data: string) => {
-    setBaseColor2(data);
+  const handleAdjustHue = (data: number) => {
+    setAdjustHue(data);
   };
 
+  const handleSelectBaseColorOne = (data: string) => {
+
+    setBaseColorOne(data);
+
+  };
+  const handleSelectBaseColorTwo = (data: string) => {
+    setBaseColorTwo(data);
+  };
+  const handleGenSingleColor = (data: boolean) => {
+    setGenerateSingleColor(data);
+  };
+  const generateColors = () => {
+    const args = {
+      count: 4,
+      baseColorOne: "#FF0000",
+      baseColorTwo: "#00FF00",
+      lerp: 0.5,
+      adjustHue: getAdjustHue,
+      random: generateSingleColor,
+      direction: 1
+    };
+    if (selectedGenerator) {
+      // Call the selected generator's function with the appropriate parameters 
+      const colors = selectedGenerator.function({
+        count: getCount,
+        baseColorOne: baseColorOne,
+        baseColorTwo: baseColorTwo,
+        lerp: getLerp,
+        adjustHue: getAdjustHue,
+        random: generateSingleColor,
+        direction: getGradDirection,
+      });
+      setData(colors);
+      console.log("1", baseColorOne, colors)
+    }
+  };
   useEffect(() => {
-    // Fetch the color generator function based on the selected type
-    const generatorFunction = colorGenerators[colorGeneratorType as keyof typeof colorGenerators].generatorFunction;
-    // Execute the generator function to get colors
-    const generatedColors = generatorFunction(baseColorOne, getCount);
-    const extractColors: string[] = generatedColors.map((item) => item.colors).flat()
-    // Set the generated colors
-    setData(extractColors);
-    console.log(extractColors)
-  }, [selectedGenerator, getCount, getLerp, getShiftAngle, getGradDirection, Isinterpolated, selectedGenerator, colorGeneratorType, baseColorOne, baseColorTwo]);
+    generateColors()
+  }, [getCount, baseColorOne, baseColorTwo, getLerp, getAdjustHue, getGradDirection, generateSingleColor]);
   return (
-    <div className='min-h-screen bg-gray-100 p-10'>
-      <ColorGeneratorSelector colorGenerators={colorGenerators} onTypeChange={(type) => setColorGeneratorType(type)} />
+    <div className='md:min-h-screen h-full bg-white  lg:p-10'>
+      <div className="rounded-lg border shadow-sm p-4" data-v0-t="card">
 
-      <GeneratorOptions baseColor1={handleSelectBaseColor1} baseColor2={handleSelectBaseColor2} selectedGenerator={colorGeneratorType} handleCount={handleCount} handleLerp={handleLerp} handleGradDirection={handleGradDirection} ></GeneratorOptions>
-      <div className='flex  my-5'>
-        <div className='w-full shadow-md bg-white p-10'>
-          {data ? <MonoChromaticColorsView colors={data}></MonoChromaticColorsView> : <h1 className='  text-gray-500 text-[24px]'>Select Color Variation to start</h1>}
+        <div className="flex p-6">
+          <div className='flex-col'>
+            <h3 className="text-lg font-semibold">Choose Option</h3>
+
+            <GeneratorSelector onGeneratorSelect={handleSelectGenerator} />
+          </div>
+
+
+          <GeneratorOptions baseColorOne={handleSelectBaseColorOne} baseColorTwo={handleSelectBaseColorTwo} selectedGenerator={selectedGenerator} handleCount={handleCount} handleLerp={handleLerp} handleHue={handleAdjustHue} handleGenSingleColor={handleGenSingleColor} handleGradDirection={handleGradDirection}  ></GeneratorOptions>
 
         </div>
+      </div>
+      <div className='flex  my-5'>
+        <div className='w-full rounded-lg border   bg-white lg:p-10'>
+          <h1 className='font-semibold text-3xl px-2 text-gray-500'>Pallet</h1>
 
+          {selectedGenerator?.name == "monochromatic" ? <MonoChromaticColorsView colors={data} /> : <AnalogousColorsView colors={data} />}
+
+        </div>
 
       </div>
     </div>

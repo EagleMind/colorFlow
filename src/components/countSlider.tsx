@@ -3,9 +3,10 @@ interface ChildProps {
     onDataSend: (value: any) => void;
     min: number;
     max: number;
+    type: string
 }
 
-export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max }) => {
+export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max, type }) => {
     const [value, setValue] = useState(0);
     useEffect(() => {
         if (onDataSend) {
@@ -23,7 +24,9 @@ export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max }) => 
 
             <input
                 type="range"
+                step={type == "int" ? "1" : "0.1"}
                 min={min}
+
                 max={max}
                 value={value}
                 onChange={handleSliderChange}

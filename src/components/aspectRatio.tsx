@@ -2,11 +2,11 @@ interface Props {
     ratio: number;
     children: React.ReactNode;
 }
-export const AspectRatio = ({ ratio = 1 / 1, ...children }: Props) => {
+export const AspectRatio = ({ ratio, ...children }: Props) => {
 
     return (
         <div
-            className="aspect-ratio"
+            className="aspect-ratio  "
             style={{ paddingTop: `${100 / ratio}%` }}
             {...children}
         />
