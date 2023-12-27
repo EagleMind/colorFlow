@@ -20,7 +20,7 @@ export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max, type,
     };
 
     return (
-        <div className="flex items-center  rounded-md border p-2 m-2  min-w-full justify-between">
+        <div className="flex items-center  rounded-md border p-2 my-2  min-w-full justify-between bg-white" >
             <p >{name}</p>
 
             <input
