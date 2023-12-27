@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { AnalogousColorsView, MonoChromaticColorsView } from './components/pallet';
+import { ColorsView } from './components/pallet';
 import { GeneratorOptions } from './components/GeneratorOptions';
 import GeneratorSelector from './utils/colorUtils/ColorGeneratorSelector';
 import { Generator } from './types';
@@ -70,7 +70,6 @@ const App: React.FC = () => {
         direction: getGradDirection,
       });
       setData(colors);
-      console.log("1", baseColorOne, colors)
     }
   };
   useEffect(() => {
@@ -95,9 +94,7 @@ const App: React.FC = () => {
       <div className='flex  my-5'>
         <div className='w-full rounded-lg border   bg-white lg:p-10'>
           <h1 className='font-semibold text-3xl px-2 text-gray-500'>Generated Colors</h1>
-          {data ? selectedGenerator?.name == "monochromatic" ? <MonoChromaticColorsView colors={data} /> : <AnalogousColorsView colors={data} /> : <h1 className='font-semibold text-1xl px-2 text-gray-500'>No generator or color selected</h1>}
-
-
+          {data && <ColorsView colors={data}></ColorsView>}
         </div>
 
       </div>

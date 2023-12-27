@@ -3,27 +3,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { getTextColor } from "./utils/lightColorDetector";
 
-export interface Gradient {
-    from: string
-    to: string
-    angle: number
+export interface GradientProps {
+    from: string;
+    to: string;
+    angle: number;
+}
+
+export interface SingleColorProps {
+    color: string;
 
 }
 
-export interface GradientMonochromatic {
-    color: string
-    index: number
-}
-
-
-export function GradientAnalogous({ from, to, angle }: Gradient) {
+export const Gradient = ({ from, to, angle }: GradientProps) => {
     useEffect(() => {
+        console.log(from, to)
+    }, [from, to]);
 
-    }, [from, to])
     const [isClicked, setIsClicked] = useState(false);
 
     const handleCopy = () => {
-        navigator.clipboard.writeText(`${from?.toString() + "-" + to?.toString()}`);
+        navigator.clipboard.writeText(`${from}-${to}`);
         setIsClicked(true);
 
         setTimeout(() => {
@@ -31,32 +30,27 @@ export function GradientAnalogous({ from, to, angle }: Gradient) {
         }, 1000);
     };
 
-
     return (
         <div
             className="rounded-t-lg cursor-pointer relative border gradient-box"
             style={{
-                backgroundImage: `linear-gradient(${angle}deg, ${from?.toString()}, ${to?.toString()})`,
-                border: isClicked ? '2px solid #4299e1' : 'none',
-
+                backgroundImage: `linear-gradient(${angle}deg, ${from}, ${to})`,
+                border: isClicked ? "2px solid #4299e1" : "none",
             }}
-
             onClick={handleCopy}
         >
-            <div className="absolute  w-full h-full  transition-opacity duration-300 opacity-0 hover:opacity-100 top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-                <FontAwesomeIcon
-                    icon={faCopy}
-                    fontSize={30}
-                    color="white"
-                />
-                <span className="mx-3" style={{ color: getTextColor(from) }}>{from?.toString()}, {to?.toString()}</span> </div>
+            <div className="absolute w-full h-full transition-opacity duration-300 opacity-0 hover:opacity-100 top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+                <FontAwesomeIcon icon={faCopy} fontSize={30} color="white" />
+                {/* <span className="mx-3" style={{ color: getTextColor(from.toString()) }}>
+                    {from}, {to}
+                </span>{" "} */}
+            </div>
         </div>
     );
-}
-export function GradientMonochromatic({ index, color }: GradientMonochromatic) {
+};
 
+export const SingleColorView = ({ color }: SingleColorProps) => {
     const [isClicked, setIsClicked] = useState(false);
-
     const handleCopy = () => {
         navigator.clipboard.writeText(color);
         setIsClicked(true);
@@ -66,26 +60,21 @@ export function GradientMonochromatic({ index, color }: GradientMonochromatic) {
         }, 1000);
     };
 
-
     return (
         <div
-            key={index}
-            className=" cursor-pointer relative border"
+            className="cursor-pointer relative border"
             style={{
                 backgroundColor: color,
-                border: isClicked ? '2px solid #4299e1' : 'none',
-
+                border: isClicked ? "2px solid #4299e1" : "none",
             }}
-
             onClick={handleCopy}
         >
-            <div className="absolute  w-full h-full  transition-opacity duration-300 opacity-0 hover:opacity-100 top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-                <FontAwesomeIcon
-                    icon={faCopy}
-                    fontSize={30}
-                    color="white"
-                />
-                <span className="mx-3" style={{ color: getTextColor(color) }}>{color}</span> </div>
+            <div className="absolute w-full h-full transition-opacity duration-300 opacity-0 hover:opacity-100 top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+                <FontAwesomeIcon icon={faCopy} fontSize={30} color="white" />
+                {/* <span className="mx-3" style={{ color: getTextColor(color.toString()) }}>
+                    {color}
+                </span>{" "} */}
+            </div>
         </div>
     );
-}
+};
