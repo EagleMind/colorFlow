@@ -82,7 +82,7 @@ const App: React.FC = () => {
 
         <div className="flex p-6">
           <div className='flex-col bg-gray-100 p-5 border rounded-md'>
-            <h3 className="text-lg font-semibold">Choose Option</h3>
+            <h3 className="text-lg font-semibold">Choose Generator</h3>
 
             <GeneratorSelector onGeneratorSelect={handleSelectGenerator} />
           </div>
