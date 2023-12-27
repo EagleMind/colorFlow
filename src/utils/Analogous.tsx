@@ -15,7 +15,10 @@ export const generateAnalogousColors: (
 
         // Convert HSL to hex
         const hexColor = hslToHexv2(newHue, saturation / 100, lightness / 100);
+        // Interpolation itself could be optional as well, for so, ColorVariations needs to switch structure from handing an object to an array of strings
+        // Therefore the handling of data state in App.tsx should be adjusted accordingly
         const interpolatedColor = interpolateColors(args.baseColorOne, hslToHexv2(newHue, saturation / 200, lightness / 100), args.lerp, args.adjustHue);
+        // hslToHexv2(newHue, saturation / 200, lightness / 100) : Could be made optional for more gradient control capabilities.
 
         colorVariations.push({ from: hexColor, to: interpolatedColor });
         console.log("vars")
