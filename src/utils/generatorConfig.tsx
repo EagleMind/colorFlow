@@ -13,7 +13,6 @@ const generators: Generator[] = [
             "baseColorOne",
             "lerp",
             "adjustHue",
-            "direction",
             "Isinterpolated"],
     },
     {

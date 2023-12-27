@@ -77,11 +77,11 @@ const App: React.FC = () => {
     generateColors()
   }, [getCount, baseColorOne, baseColorTwo, getLerp, getAdjustHue, getGradDirection, generateSingleColor]);
   return (
-    <div className='md:min-h-screen h-full bg-white  lg:p-10'>
+    <div className='md:min-h-screen h-full  lg:p-10'>
       <div className="rounded-lg border shadow-sm p-4" data-v0-t="card">
 
         <div className="flex p-6">
-          <div className='flex-col'>
+          <div className='flex-col bg-gray-100 p-5 border rounded-md'>
             <h3 className="text-lg font-semibold">Choose Option</h3>
 
             <GeneratorSelector onGeneratorSelect={handleSelectGenerator} />
@@ -94,9 +94,9 @@ const App: React.FC = () => {
       </div>
       <div className='flex  my-5'>
         <div className='w-full rounded-lg border   bg-white lg:p-10'>
-          <h1 className='font-semibold text-3xl px-2 text-gray-500'>Pallet</h1>
+          <h1 className='font-semibold text-3xl px-2 text-gray-500'>Generated Colors</h1>
+          {data ? selectedGenerator?.name == "monochromatic" ? <MonoChromaticColorsView colors={data} /> : <AnalogousColorsView colors={data} /> : <h1 className='font-semibold text-1xl px-2 text-gray-500'>No generator or color selected</h1>}
 
-          {selectedGenerator?.name == "monochromatic" ? <MonoChromaticColorsView colors={data} /> : <AnalogousColorsView colors={data} />}
 
         </div>
 

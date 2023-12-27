@@ -4,9 +4,10 @@ interface ChildProps {
     min: number;
     max: number;
     type: string
+    name: string
 }
 
-export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max, type }) => {
+export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max, type, name }) => {
     const [value, setValue] = useState(0);
     useEffect(() => {
         if (onDataSend) {
@@ -19,8 +20,8 @@ export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max, type 
     };
 
     return (
-        <div className="flex items-center w-full">
-            <p className="mx-5  text-center">{value.toFixed()}</p>
+        <div className="flex items-center  rounded-md border p-2 m-2  min-w-full justify-between">
+            <p >{name}</p>
 
             <input
                 type="range"
@@ -30,8 +31,10 @@ export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max, type 
                 max={max}
                 value={value}
                 onChange={handleSliderChange}
-                className="w-full  appearance-none rounded-full h-2 bg-blue-200 outline-none"
+                className="appearance-none rounded-full h-2 bg-blue-200 outline-none"
             />
+            <p className="  text-center">{value.toFixed()}</p>
+
         </div>
     );
 };

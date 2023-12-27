@@ -22,19 +22,21 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
             if (props.selectedGenerator?.parameters.includes(currentFilter)) {
                 switch (currentFilter) {
                     case 'baseColorOne':
-                        return <ColorPicker onChange={(color) => props.baseColorOne(color.hex)} hideAlpha={true} />;
+                        return <div className="flex flex-col items-center   ">
+                            <h3 className="text-lg font-semibold self-start">Choose Color</h3><ColorPicker onChange={(color) => props.baseColorOne(color.hex)} hideAlpha={true} />
+                        </div >;
                     case 'baseColorTwo':
                         return <ColorPicker onChange={(color) => props.baseColorTwo(color.hex)} hideAlpha={true} />;
                     case 'lerp':
-                        return <NumberSlider type="float" onDataSend={props.handleLerp} min={0} max={1} />;
+                        return <NumberSlider type="float" name="Linear interpolation" onDataSend={props.handleLerp} min={0} max={1} />;
                     case 'count':
-                        return <NumberSlider type='int' onDataSend={props.handleCount} min={0} max={100} />;
+                        return <NumberSlider type='int' name="Variations amount" onDataSend={props.handleCount} min={0} max={100} />;
                     case 'direction':
                         return <SwitchComponent type="int" onDataSend={props.handleGradDirection} />
                     case 'random':
                         return <SwitchComponent type="randomColors" onDataSend={props.handleGenSingleColor} />
                     case 'adjustHue':
-                        return <NumberSlider type="int" onDataSend={props.handleHue} min={0} max={360} />
+                        return <NumberSlider name="Hue" type="int" onDataSend={props.handleHue} min={0} max={360} />
                     default:
                         return null;
                 }
@@ -43,38 +45,23 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
     };
 
     return (
-        <div className="flex items-center justify-between mx-5 px-5 rounded-md w-full">
-            <div className='flex justify-between md:w-1/3 '>
+        props.selectedGenerator ? <div className="flex  justify-start mx-5 px-5 rounded-md w-full">
 
 
-                <div className='flex'>
-                    {naturalOptionSelector('baseColorOne')}
-                    {naturalOptionSelector('baseColorTwo')}
-                </div>
-
+            <div className='flex bg-gray-100 p-5 border rounded-md'>
+                {naturalOptionSelector('baseColorOne')}
+                {naturalOptionSelector('baseColorTwo')}
             </div>
-            <div className='flex flex-col'>
-                <div className='bg-red'>
-                    <p>count</p>
-                    {naturalOptionSelector('count')}
-                    <p>adjustHue</p>
-                    {naturalOptionSelector('adjustHue')}
-                    <p>lerp</p>
-                    {naturalOptionSelector('lerp')}
 
-
-
-
-                </div>
-
+            <div className='flex flex-col bg-gray-100 p-5 border rounded-md md:w-1/3 mx-5'>
+                <h3 className="text-lg font-semibold self-start">Choose Options</h3>
+                {naturalOptionSelector('count')}
+                {naturalOptionSelector('adjustHue')}
+                {naturalOptionSelector('lerp')}
                 {naturalOptionSelector('direction')}
-                <div className='flex flex-col'>
-
-                    {naturalOptionSelector('random')}
-
-                </div>
+                {naturalOptionSelector('random')}
             </div>
-        </div>
+        </div> : null
 
 
     );
