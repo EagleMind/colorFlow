@@ -8,7 +8,7 @@ export function generatePastelVariations(args: any): any[] {
 
         // Convert RGB to hexadecimal format
         const color = `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`;
-        pastelColors.push({ color: color })
+        pastelColors.push(color)
     }
 
     return pastelColors;
