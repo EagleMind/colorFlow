@@ -23,10 +23,6 @@ const ColorsView = (
     }
     const isGradient = isArrayOfObjects(props.colors)
 
-    console.log("isGradient", isGradient)
-    console.log("props.colors", props.colors)
-    console.log("props.colors", props.colors)
-    props.colors.map((color: any, index: number) => (console.log(color)))
     return (
         <div className={`flex flex-col lg:flex-row w-full flex-wrap justify-center`}>
             {props.colors.map((color: any, index: number) => (
@@ -47,7 +43,7 @@ const ColorsView = (
                             <span className="text-gray-500 text-sm">
                                 {isGradient
                                     ? `${color.from}–${color.to}`
-                                    : color.color}
+                                    : color}
                             </span>
                         </figcaption>
                     </BrowserView>

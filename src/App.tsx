@@ -11,7 +11,9 @@ const App: React.FC = () => {
   const [data, setData] = useState<any[]>([]);
   const [getLerp, setLerp] = useState<number>(0);
   const [getGradDirection, setGradeDirection] = useState<boolean>(false);
-  const [getAdjustHue, setAdjustHue] = useState<number>(0);
+  const [getHue, setAdjustHue] = useState<number>(0);
+  const [getLightness, setLightness] = useState<number>(0);
+  const [getSaturatiion, setSaturation] = useState<number>(0);
   const [getCount, setCount] = useState<number>(0);
   const [generateSingleColor, setGenerateSingleColor] = useState<boolean>(false);
   const [baseColorOne, setBaseColorOne] = useState<string>('');
@@ -33,8 +35,16 @@ const App: React.FC = () => {
   const handleGradDirection = (data: boolean) => {
     setGradeDirection(data);
   };
-  const handleAdjustHue = (data: number) => {
+  const handleHue = (data: number) => {
     setAdjustHue(data);
+  };
+
+  const handleLightness = (data: number) => {
+    setLightness(data);
+  };
+
+  const handleSaturation = (data: number) => {
+    setSaturation(data);
   };
 
   const handleSelectBaseColorOne = (data: string) => {
@@ -54,7 +64,9 @@ const App: React.FC = () => {
       baseColorOne: "#FF0000",
       baseColorTwo: "#00FF00",
       lerp: 0.5,
-      adjustHue: getAdjustHue,
+      hue: getHue,
+      lightness: getLightness,
+      saturation: getSaturatiion,
       random: generateSingleColor,
       direction: 1
     };
@@ -65,16 +77,19 @@ const App: React.FC = () => {
         baseColorOne: baseColorOne,
         baseColorTwo: baseColorTwo,
         lerp: getLerp,
-        adjustHue: getAdjustHue,
+        hue: getHue,
+        lightness: getLightness,
+        saturation: getSaturatiion,
         random: generateSingleColor,
         direction: getGradDirection,
       });
+      console.log("final output")
       setData(colors);
     }
   };
   useEffect(() => {
     generateColors()
-  }, [getCount, baseColorOne, baseColorTwo, getLerp, getAdjustHue, getGradDirection, generateSingleColor]);
+  }, [getCount, baseColorOne, baseColorTwo, getLerp, getHue, getLightness, getSaturatiion, getGradDirection, generateSingleColor]);
   return (
     <div className='md:min-h-screen h-full  lg:p-10'>
       <div className="rounded-lg border shadow-sm p-4" data-v0-t="card">
@@ -87,7 +102,7 @@ const App: React.FC = () => {
           </div>
 
 
-          <GeneratorOptions baseColorOne={handleSelectBaseColorOne} baseColorTwo={handleSelectBaseColorTwo} selectedGenerator={selectedGenerator} handleCount={handleCount} handleLerp={handleLerp} handleHue={handleAdjustHue} handleGenSingleColor={handleGenSingleColor} handleGradDirection={handleGradDirection}  ></GeneratorOptions>
+          <GeneratorOptions baseColorOne={handleSelectBaseColorOne} baseColorTwo={handleSelectBaseColorTwo} selectedGenerator={selectedGenerator} handleCount={handleCount} handleLerp={handleLerp} handleHue={handleHue} handleLightness={handleLightness} handleSaturation={handleSaturation} handleGenSingleColor={handleGenSingleColor} handleGradDirection={handleGradDirection}  ></GeneratorOptions>
 
         </div>
       </div>

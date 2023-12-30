@@ -1,6 +1,6 @@
 import { generateAnalogousColors } from "./Analogous";
 import { generateMonochromaticColors } from "./Monochromatic";
-import { generatePastelPairs } from "./PastelColors";
+import { generatePastelVariations } from "./PastelColors";
 import { Generator } from "../types";
 
 
@@ -12,7 +12,7 @@ const generators: Generator[] = [
         parameters: ["count",
             "baseColorOne",
             "lerp",
-            "adjustHue",
+            "hue", "lightness", "saturation",
             "Isinterpolated"],
     },
     {
@@ -25,8 +25,10 @@ const generators: Generator[] = [
     {
         name: 'pastel',
         description: 'Generate Pastel colors',
-        function: generatePastelPairs,
-        parameters: ["count", "baseColorOne", "baseColorTwo", "adjustHue", "random"],
+        function: generatePastelVariations,
+        parameters: ["count", "baseColorOne", "random", "hue", "lightness", "saturation",
+
+        ],
 
     },
     // Add more generators as needed

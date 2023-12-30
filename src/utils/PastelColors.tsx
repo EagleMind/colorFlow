@@ -1,35 +1,17 @@
-import { interpolateColors, adjustHue, randomHexColor } from './colorUtils';
+export function generatePastelVariations(args: any): any[] {
+    let pastelColors = []
+    for (let index = 0; index < args.count; index++) {
+        // Generate random values for RGB components within a pastel range
+        const red = Math.floor(Math.random() * 100) + 150; // 155-255
+        const green = Math.floor(Math.random() * 100) + 150; // 155-255
+        const blue = Math.floor(Math.random() * 100) + 150; // 155-255
 
-interface ColorPair {
-    from: string;
-    to: string;
-}
-
-export const generatePastelPairs = (args: any): ColorPair[] => {
-    const colorPairs: ColorPair[] = [];
-
-    if (args.random) {
-        for (let i = 0; i < args.count; i++) {
-            const baseColor1 = randomHexColor();
-            const baseColor2 = randomHexColor();
-
-            const colorOne = adjustHue(baseColor1, args.adjustHue);
-            const colorTwo = adjustHue(baseColor2, args.adjustHue);
-
-            const interpolatedColor = interpolateColors(colorOne, colorTwo, args.lerp, args.adjustHue);
-
-            colorPairs.push({ from: args.baseColorOne, to: interpolatedColor });
-        }
-    } else {
-        const colorOne = adjustHue(args.baseColorOne, args.adjustHue);
-        const colorTwo = adjustHue(args.baseColorTwo, args.adjustHue);
-
-        const interpolatedColor = interpolateColors(colorOne, colorTwo, args.lerp, args.adjustHue);
-
-        colorPairs.push({ from: args.baseColorOne, to: interpolatedColor });
+        // Convert RGB to hexadecimal format
+        const color = `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`;
+        pastelColors.push({ color: color })
     }
 
+    return pastelColors;
+}
 
 
-    return colorPairs;
-};

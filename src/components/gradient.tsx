@@ -16,7 +16,6 @@ export interface SingleColorProps {
 
 export const Gradient = ({ from, to, angle }: GradientProps) => {
     useEffect(() => {
-        console.log(from, to)
     }, [from, to]);
 
     const [isClicked, setIsClicked] = useState(false);
