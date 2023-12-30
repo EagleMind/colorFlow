@@ -14,8 +14,14 @@ export const generateAnalogousColors = (args: any) => {
         const newHue = (hue + (i * args.hue)) % 360; // Vary the hue dynamically
         // Convert HSL to hex
 
-        const hexColor = hslToHexv2(newHue, saturation / 100, lightness / 100);
-        colorVariations.push(hexColor);
+        const hexColor = hslToHexv2(newHue, args.saturation + (saturation / 100), args.lightness + (lightness / 100));
+        if (args.lerp) {
+            const interpolatedColor = interpolateColors(args.baseColorOne, hexColor, args.lerp, true)
+            colorVariations.push({ from: hexColor, to: interpolatedColor });
+
+        } else {
+            colorVariations.push(hexColor);
+        }
     }
 
     return colorVariations;
