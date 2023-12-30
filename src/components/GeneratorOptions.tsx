@@ -9,6 +9,8 @@ type Props = {
     handleCount: (count: number) => void;
     handleLerp: (lerp: number) => void;
     handleHue: (angle: number) => void
+    handleLightness: (angle: number) => void
+    handleSaturation: (angle: number) => void
     handleGradDirection: (direction: boolean) => void;
     selectedGenerator: Generator | null;
     baseColorOne: (baseColorOne: string) => void;
@@ -33,8 +35,12 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
                         return <SwitchComponent type="int" onDataSend={props.handleGradDirection} />
                     case 'random':
                         return <SwitchComponent type="randomColors" onDataSend={props.handleGenSingleColor} />
-                    case 'adjustHue':
+                    case 'hue':
                         return <NumberSlider name="Hue" type="int" onDataSend={props.handleHue} min={0} max={360} />
+                    case 'lightness':
+                        return <NumberSlider name="Lightness" type="int" onDataSend={props.handleLightness} min={0} max={360} />
+                    case 'saturation':
+                        return <NumberSlider name="Saturation" type="int" onDataSend={props.handleSaturation} min={0} max={360} />
                     default:
                         return null;
                 }
@@ -57,7 +63,9 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
             {props.selectedGenerator.name === "monochromatic" ? null : <div className='flex flex-col bg-gray-100 p-5 border rounded-md md:w-1/3 mx-5'>
                 <h3 className="text-lg font-semibold self-start ">Choose Options</h3>
                 {naturalOptionSelector('count')}
-                {naturalOptionSelector('adjustHue')}
+                {naturalOptionSelector('hue')}
+                {naturalOptionSelector('lightness')}
+                {naturalOptionSelector('saturation')}
                 {naturalOptionSelector('lerp')}
                 {naturalOptionSelector('direction')}
                 {naturalOptionSelector('random')}

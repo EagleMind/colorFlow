@@ -1,29 +1,28 @@
 import { hexToHSLv2, hslToHexv2, interpolateColors } from "./colorUtils";
 
-export const generateAnalogousColors: (
-    args: any,
-) => any = (args) => {
+export const generateAnalogousColors = (args: any) => {
+    if (!args.baseColorOne) {
+        return null;
+    }
+
     const baseColorHSL = hexToHSLv2(args.baseColorOne);
     const { hue, saturation, lightness } = baseColorHSL;
     const colorVariations = [];
 
-    // Define the difference in hue between each analogous color
-
     for (let i = 0; i < args.count; i++) {
         // Calculate the new hue for each variation
-        const newHue = (hue + i * args.adjustHue) % 360;
-
+        const newHue = (hue + (i * args.hue)) % 360; // Vary the hue dynamically
         // Convert HSL to hex
-        const hexColor = hslToHexv2(newHue, saturation / 100, lightness / 100);
-        // Interpolation itself could be optional as well, for so, ColorVariations needs to switch structure from handing an object to an array of strings
-        // Therefore the handling of data state in App.tsx should be adjusted accordingly
-        const interpolatedColor = interpolateColors(args.baseColorOne, hslToHexv2(newHue, saturation / 200, lightness / 100), args.lerp, args.adjustHue);
-        // hslToHexv2(newHue, saturation / 200, lightness / 100) : Could be made optional for more gradient control capabilities.
 
-        colorVariations.push({ from: hexColor, to: interpolatedColor });
-        console.log("vars")
+        const hexColor = hslToHexv2(newHue, args.saturation + (saturation / 100), args.lightness + (lightness / 100));
+        if (args.lerp) {
+            const interpolatedColor = interpolateColors(args.baseColorOne, hexColor, args.lerp, true)
+            colorVariations.push({ from: hexColor, to: interpolatedColor });
+
+        } else {
+            colorVariations.push(hexColor);
+        }
     }
 
     return colorVariations;
-}
-
+};
