@@ -12,7 +12,7 @@ const generators: Generator[] = [
         parameters: ["count",
             "baseColorOne",
             "lerp",
-            "hue", "lightness", "saturation",
+            "hue",
             "Isinterpolated"],
     },
     {
@@ -26,7 +26,7 @@ const generators: Generator[] = [
         name: 'pastel',
         description: 'Generate Pastel colors',
         function: generatePastelVariations,
-        parameters: ["count", "baseColorOne", "random", "hue", "lightness", "saturation",
+        parameters: ["count",
 
         ],
 
