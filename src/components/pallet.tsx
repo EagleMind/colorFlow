@@ -1,31 +1,35 @@
-import { useEffect } from "react";
-import {
-    AnalogousColorObject,
-    MonochromaticColorObject,
-} from "../types";
+// ColorsView.tsx
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+
 import {
     Gradient,
     SingleColorView,
 } from "./gradient";
 import { BrowserView, MobileView } from "react-device-detect";
 import AspectRatio from "./aspectRatio";
+import { RootState } from "../redux/store";
 
-export interface Pallet {
-    colors: { from: string; to: string }[] | string[];
-    index?: number;
-}
+export const ColorsView: React.FC = () => {
+    const dispatch = useDispatch();
+    const colors: string[] = useSelector((state: RootState) => state.colorsGenerated.colors);
+    console.log("ColorsView", colors);
 
-const ColorsView = (
-    props: Pallet
-) => {
+    useEffect(() => {
+    }, [dispatch]);
+
     function isArrayOfObjects(colors: any): colors is { from: string; to: string }[] {
         return Array.isArray(colors) && colors.length > 0 && typeof colors[0] === 'object' && 'from' in colors[0] && 'to' in colors[0];
     }
-    const isGradient = isArrayOfObjects(props.colors)
 
+    const isGradient = isArrayOfObjects(colors);
+    if (!colors) {
+        return null
+    }
     return (
         <div className={`flex flex-col lg:flex-row w-full flex-wrap justify-center`}>
-            {props.colors.map((color: any, index: number) => (
+
+            {colors ? colors.map((color: any, index: number) => (
                 <figure className=" w-full lg:w-1/5 m-3" key={index}>
                     <BrowserView>
                         <AspectRatio ratio={1 / 1}>
@@ -55,7 +59,7 @@ const ColorsView = (
                                     from={color.from}
                                     to={color.to}
                                 />
-                            ) : "color" in props && (
+                            ) : "color" in colors && (
                                 <SingleColorView color={color} />
                             )}
                         </AspectRatio>
@@ -68,11 +72,8 @@ const ColorsView = (
                         </figcaption>
                     </MobileView>
                 </figure >
-            ))}
+            )) : null}
         </div>
     );
 };
 
-
-
-export { ColorsView };
