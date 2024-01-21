@@ -94,7 +94,7 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
         props.selectedGenerator ? (
             <div className="flex justify-start mx-5 px-5 rounded-md w-full">
                 {props.selectedGenerator?.name === "pastel" ? null : <div className='flex flex-col bg-gray-100 p-5 border rounded-md'>
-                    <h3 className="text-lg font-semibold ">Choose Colors</h3>
+                    <h3 className="text-lg  ">Choose Colors</h3>
                     <div className='flex my-2'>
                         {naturalOptionSelector('baseColorOne')}
                         {naturalOptionSelector('baseColorTwo')}
@@ -102,7 +102,7 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
                 </div>}
                 {props.selectedGenerator.name === "monochromatic" ? null : (
                     <div className='flex flex-col bg-gray-100 p-5 border rounded-md w-full mx-5'>
-                        <h3 className="text-lg font-semibold self-start ">Choose Options</h3>
+                        <h3 className="text-lg  self-start ">Choose Options</h3>
                         {naturalOptionSelector('count')}
                         {naturalOptionSelector('hue')}
                         {naturalOptionSelector('lightness')}

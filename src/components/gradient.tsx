@@ -37,7 +37,9 @@ export const Gradient = ({ from, to, angle }: GradientProps) => {
     }
 
     const handleLivePreviewActivation = () => {
-
+        if (!livePreviewState) {
+            dispatch(setLivePreviewState(true))
+        }
         dispatch(setAssets({ from: from, to: to, angle }))
     }
 
