@@ -14,7 +14,7 @@ type Assets = {
 }
 const initialState: livePreview = {
     livePreviewState: false,
-    assets: {}
+    assets: {},
 };
 
 export const livePreviewSlice = createSlice({

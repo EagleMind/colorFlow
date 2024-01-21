@@ -66,7 +66,7 @@ const App: React.FC = () => {
 
             <div className="flex  p-6">
               <div className='flex-col bg-gray-100 p-5 border rounded-md'>
-                <h3 className="text-lg font-semibold">Choose Generator</h3>
+                <h3 className="text-lg ">Choose Generator</h3>
 
                 <GeneratorSelector onGeneratorSelect={handleSelectGenerator} />
               </div>
@@ -78,7 +78,7 @@ const App: React.FC = () => {
           </div>
           <div className='flex  my-5'>
             <div className='w-full rounded-lg border   bg-white lg:p-10'>
-              <h1 className='font-semibold text-3xl px-2 text-gray-500'>Generated Colors</h1>
+              <h1 className=' text-3xl px-2 text-gray-500'>Generated Colors</h1>
               {<ColorsView ></ColorsView>}
             </div>
 
