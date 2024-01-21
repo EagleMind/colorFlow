@@ -3,7 +3,6 @@ import { hexToRgb, rgbToHex } from './colorUtils';
 export const generateMonochromaticColors: (
     args: any,
 ) => any = (args) => {
-    console.log("baseColor", args.baseColorOne)
     const baseRGB = hexToRgb(args.baseColorOne);
 
     if (!baseRGB || typeof baseRGB !== 'object' || Array.isArray(baseRGB)) {

@@ -1,4 +1,3 @@
-// ColorsView.tsx
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -13,7 +12,6 @@ import { RootState } from "../redux/store";
 export const ColorsView: React.FC = () => {
     const dispatch = useDispatch();
     const colors: string[] = useSelector((state: RootState) => state.colorsGenerated.colors);
-    console.log("ColorsView", colors);
 
     useEffect(() => {
     }, [dispatch]);

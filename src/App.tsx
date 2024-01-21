@@ -21,12 +21,10 @@ const App: React.FC = () => {
 
   const handleSelectGenerator = (generator: Generator) => {
     setSelectedGenerator(generator);
-    console.log("selectedGenerator", selectedGenerator)
 
     dispatch(setColors([]))
   };
 
-  // Replace this with your actual color generation logic
   const generateColors = (generator: Generator | null, options: filtersReducerState): any[] => {
     if (generator) {
       // Call the selected generator's function with the appropriate parameters
@@ -50,8 +48,6 @@ const App: React.FC = () => {
   useEffect(() => {
     const colors = generateColors(selectedGenerator, filtersState.filters)
     dispatch(setColors(colors))
-    console.log("state", filtersState.filters)
-    console.log("colors", colors)
   }, [dispatch, selectedGenerator, filtersState.filters]);
   return (
     <div className='md:min-h-screen h-full  lg:p-10'>
