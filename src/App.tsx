@@ -4,98 +4,51 @@ import { ColorsView } from './components/pallet';
 import { GeneratorOptions } from './components/GeneratorOptions';
 import GeneratorSelector from './utils/colorUtils/ColorGeneratorSelector';
 import { Generator } from './types';
-
-
+import { useSelector, useDispatch } from 'react-redux';
+import { generatedColors } from './redux/features/colorGeneratorFeature/generatedColors';
+import {
+  setColors
+} from './redux/features/colorGeneratorFeature/generatedColors';
+import { filtersReducerState } from './redux/features/colorGeneratorFeature/generatorFilters';
+export type StateProps = {
+  filters: filtersReducerState
+  generatedColors: generatedColors
+}
 const App: React.FC = () => {
-
-  const [data, setData] = useState<any[]>([]);
-  const [getLerp, setLerp] = useState<number>(0);
-  const [getGradDirection, setGradeDirection] = useState<boolean>(false);
-  const [getHue, setAdjustHue] = useState<number>(0);
-  const [getLightness, setLightness] = useState<number>(0);
-  const [getSaturatiion, setSaturation] = useState<number>(0);
-  const [getCount, setCount] = useState<number>(0);
-  const [generateSingleColor, setGenerateSingleColor] = useState<boolean>(false);
-  const [baseColorOne, setBaseColorOne] = useState<string>('');
-  const [baseColorTwo, setBaseColorTwo] = useState<string>('');
+  const dispatch = useDispatch();
+  const filtersState: StateProps = useSelector((state: StateProps) => state);
   const [selectedGenerator, setSelectedGenerator] = useState<Generator | null>(null);
 
   const handleSelectGenerator = (generator: Generator) => {
     setSelectedGenerator(generator);
-    setData([])
+
+    dispatch(setColors([]))
   };
 
-  const handleCount = (data: number = 1) => {
-    setCount(data);
-  };
-
-  const handleLerp = (data: number) => {
-    setLerp(data);
-  };
-  const handleGradDirection = (data: boolean) => {
-    setGradeDirection(data);
-  };
-  const handleHue = (data: number) => {
-    setAdjustHue(data);
-  };
-
-  const handleLightness = (data: number) => {
-    setLightness(data);
-  };
-
-  const handleSaturation = (data: number) => {
-    setSaturation(data);
-  };
-
-  const handleSelectBaseColorOne = (data: string) => {
-
-    setBaseColorOne(data);
-    console.log("color 1", baseColorOne)
-  };
-  const handleSelectBaseColorTwo = (data: string) => {
-    setBaseColorTwo(data);
-    console.log("color 2", baseColorTwo)
-
-  };
-  const handleGenSingleColor = (data: boolean) => {
-    setGenerateSingleColor(data);
-  };
-  const generateColors = () => {
-    const args = {
-      count: 4,
-      baseColorOne: "#FF0000",
-      baseColorTwo: "#00FF00",
-      lerp: 0.5,
-      hue: getHue,
-      lightness: getLightness,
-      saturation: getSaturatiion,
-      random: generateSingleColor,
-      direction: 1
-    };
-    if (selectedGenerator) {
-      // Call the selected generator's function with the appropriate parameters 
-      const colors = selectedGenerator.function({
-        count: getCount,
-        baseColorOne: baseColorOne,
-        baseColorTwo: baseColorTwo,
-        lerp: getLerp,
-        hue: getHue,
-        lightness: getLightness,
-        saturation: getSaturatiion,
-        random: generateSingleColor,
-        direction: getGradDirection,
+  const generateColors = (generator: Generator | null, options: filtersReducerState): any[] => {
+    if (generator) {
+      // Call the selected generator's function with the appropriate parameters
+      const colors = generator.function({
+        count: options.count,
+        baseColorOne: options.baseColorOne,
+        baseColorTwo: options.baseColorTwo,
+        lerp: options.lerp,
+        hue: options.hue,
+        lightness: options.lightness,
+        saturation: options.saturation,
+        random: options.genSingleColor,
+        direction: options.gradDirection,
       });
-      console.log("final output - colors", {
-        baseColorOne: baseColorOne,
-        baseColorTwo: baseColorTwo,
-      })
-      setData(colors);
-      console.log("data", data)
+
+      return colors;
     }
+
+    return [];
   };
   useEffect(() => {
-    generateColors()
-  }, [getCount, baseColorOne, baseColorTwo, getLerp, getHue, getLightness, getSaturatiion, getGradDirection, generateSingleColor]);
+    const colors = generateColors(selectedGenerator, filtersState.filters)
+    dispatch(setColors(colors))
+  }, [dispatch, selectedGenerator, filtersState.filters]);
   return (
     <div className='md:min-h-screen h-full  lg:p-10'>
       <div className='flex flex-row w-full'>
@@ -112,14 +65,14 @@ const App: React.FC = () => {
               </div>
 
 
-              <GeneratorOptions baseColorOne={handleSelectBaseColorOne} baseColorTwo={handleSelectBaseColorTwo} selectedGenerator={selectedGenerator} handleCount={handleCount} handleLerp={handleLerp} handleHue={handleHue} handleLightness={handleLightness} handleSaturation={handleSaturation} handleGenSingleColor={handleGenSingleColor} handleGradDirection={handleGradDirection}  ></GeneratorOptions>
+              <GeneratorOptions selectedGenerator={selectedGenerator}></GeneratorOptions>
 
             </div>
           </div>
           <div className='flex  my-5'>
             <div className='w-full rounded-lg border   bg-white lg:p-10'>
               <h1 className='font-semibold text-3xl px-2 text-gray-500'>Generated Colors</h1>
-              {data && <ColorsView colors={data}></ColorsView>}
+              {<ColorsView ></ColorsView>}
             </div>
 
           </div>
