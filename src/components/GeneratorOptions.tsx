@@ -101,7 +101,7 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
                     </div>
                 </div>}
                 {props.selectedGenerator.name === "monochromatic" ? null : (
-                    <div className='flex flex-col bg-gray-100 p-5 border rounded-md md:w-1/3 mx-5'>
+                    <div className='flex flex-col bg-gray-100 p-5 border rounded-md w-full mx-5'>
                         <h3 className="text-lg font-semibold self-start ">Choose Options</h3>
                         {naturalOptionSelector('count')}
                         {naturalOptionSelector('hue')}

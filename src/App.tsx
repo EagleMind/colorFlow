@@ -10,6 +10,9 @@ import {
   setColors
 } from './redux/features/colorGeneratorFeature/generatedColors';
 import { filtersReducerState } from './redux/features/colorGeneratorFeature/generatorFilters';
+import Banner from './components/livePreview/previewComponents/banner';
+import { RootState } from './redux/store';
+import LivePreview from './components/livePreview';
 export type StateProps = {
   filters: filtersReducerState
   generatedColors: generatedColors
@@ -17,13 +20,17 @@ export type StateProps = {
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const filtersState: StateProps = useSelector((state: StateProps) => state);
+  const livePreviewState = useSelector((state: RootState) => state.livePreview.livePreviewState);
   const [selectedGenerator, setSelectedGenerator] = useState<Generator | null>(null);
+
 
   const handleSelectGenerator = (generator: Generator) => {
     setSelectedGenerator(generator);
 
     dispatch(setColors([]))
   };
+
+
 
   const generateColors = (generator: Generator | null, options: filtersReducerState): any[] => {
     if (generator) {
@@ -51,9 +58,9 @@ const App: React.FC = () => {
   }, [dispatch, selectedGenerator, filtersState.filters]);
   return (
     <div className='md:min-h-screen h-full  lg:p-10'>
-      <div className='flex flex-row w-full'>
+      <div className='flex flex-row w-2/3'>
 
-        <div className='flex flex-col w-2/3'>
+        <div className={`flex flex-col `}>
 
           <div className="rounded-lg border shadow-sm p-4 " data-v0-t="card">
 
@@ -77,10 +84,11 @@ const App: React.FC = () => {
 
           </div>
         </div>
-        <div className='absolute right-0 h-full rounded-lg border shadow-sm p-4 md:w-1/3'>
-          <h2 className='text-lg font-semibold'>Live Preview</h2>
+        <div className='flex'>
+          <LivePreview></LivePreview>
 
         </div>
+
       </div>
 
     </div>
