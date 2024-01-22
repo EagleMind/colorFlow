@@ -1,7 +1,10 @@
 # Note :
 
-This project is still a two days baby, has no vision yet and i made it because i'm a UI/UX enthusiast. maybe it would be useful,live and maintained by the community one day and maybe never.
+This project is still immature, has no vision yet and i made it because i'm a UI/UX enthusiast. maybe it would be useful,live and maintained by the community one day and maybe never.
 you're welcome to contribute.
+
+![image](https://github.com/EagleMind/colorFlow/assets/47986462/66e1cbd1-af2c-4e26-9685-5186e88ba6d6)
+
 
 # Color Generation Project
 
@@ -50,6 +53,7 @@ npm install
 # Coming soon
 
 - Will add more components for the live preview feature
+- Custom gradients generation
 
 # On the long run
 
