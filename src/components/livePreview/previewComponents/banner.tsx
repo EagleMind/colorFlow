@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react'
 
 export type livePreviewProps = {
     assets?: any
     textColor?: string
 }
 export default function Banner({ assets, textColor }: livePreviewProps) {
-    useEffect(() => {
-        console.log("t", assets.from)
-    }, [textColor])
+
 
     return (
         <div className='flex flex-col w-full h-64 justify-center p-5 rounded-lg' style={{

@@ -31,7 +31,6 @@ const generators: Generator[] = [
         ],
 
     },
-    // Add more generators as needed
 ];
 
 export default generators;

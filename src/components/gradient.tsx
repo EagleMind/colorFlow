@@ -1,6 +1,6 @@
 import { faCopy, faEye } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { getTextColor } from './utils/lightColorDetector'
 import { setLivePreviewState, setAssets } from '../redux/features/livePreview'
 import { useDispatch } from 'react-redux'
@@ -19,9 +19,7 @@ export interface SingleColorProps {
 
 export const Gradient = ({ from, to, angle }: GradientProps) => {
     const livePreviewState = useSelector((state: RootState) => state.livePreview.livePreviewState);
-    useEffect(() => {
-        console.log(from, to, angle)
-    }, [from, to, angle])
+
     const dispatch = useDispatch();
     const [isClicked, setIsClicked] = useState(false)
 

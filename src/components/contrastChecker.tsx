@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { calculateAverageColor, getContrastRatio, hexToRgb } from './utils/contrastChecker';
-import { livePreviewProps } from './livePreview/previewComponents/banner';
 
 type Props = {
     assets: any,
@@ -20,7 +19,7 @@ const contrastColors: ContrastColors = {
     Fail: 'red',
 };
 export default function ContrastChecker({ assets, textColor }: Props) {
-    const [contrastScore, setContrastScore] = useState<keyof ContrastColors | undefined>(); // specify the type here
+    const [contrastScore, setContrastScore] = useState<keyof ContrastColors | undefined>();
 
     const gradientColor1: number[] = hexToRgb(assets.from);
     const gradientColor2: number[] = hexToRgb(assets.to);

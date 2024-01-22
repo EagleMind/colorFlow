@@ -93,9 +93,7 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
     return (
         props.selectedGenerator ? (
             <div className="flex flex-col  rounded-md w-full">
-                {/* {props.selectedGenerator?.name === "pastel" ? null : <div className='flex flex-col  rounded-md'>
-                  
-                </div>} */}
+
                 <div className='flex justify-center my-2'>
                     {naturalOptionSelector('baseColorOne')}
                     {naturalOptionSelector('baseColorTwo')}

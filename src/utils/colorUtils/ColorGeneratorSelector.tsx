@@ -1,4 +1,3 @@
-// GeneratorSelector.tsx
 import React, { useState } from 'react';
 import { Generator } from '../../types';
 import generators from '../generatorConfig';

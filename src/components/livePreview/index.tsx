@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import Banner from './previewComponents/banner';
@@ -12,7 +12,6 @@ export default function LivePreview() {
     const handleTextColor = (color: string) => {
         setTextColor(color)
     }
-    useEffect(() => { }, [livePreviewState, textColor])
 
     return (
 
