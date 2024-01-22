@@ -8,7 +8,7 @@ export const SwitchComponent: React.FC<ChildProps> = ({ onDataSend, type }) => {
     const [isSwitchOn, setIsSwitchOn] = useState<boolean>(false);
 
     const handleButtonClick = () => {
-        setIsSwitchOn(isSwitchOn ? false : true);
+        setIsSwitchOn(!isSwitchOn);
         if (onDataSend) {
             onDataSend(isSwitchOn)
         }
