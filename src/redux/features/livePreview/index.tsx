@@ -1,4 +1,3 @@
-// colorStateSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type livePreview = {
@@ -33,8 +32,6 @@ export const livePreviewSlice = createSlice({
     },
 });
 
-// Export the actions
 export const { setLivePreviewState, setAssets } = livePreviewSlice.actions;
 
-// Export the reducer as a named export
 export const livePreviewReducer = livePreviewSlice.reducer;

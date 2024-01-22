@@ -10,9 +10,9 @@ import {
   setColors
 } from './redux/features/colorGeneratorFeature/generatedColors';
 import { filtersReducerState } from './redux/features/colorGeneratorFeature/generatorFilters';
-import Banner from './components/livePreview/previewComponents/banner';
-import { RootState } from './redux/store';
 import LivePreview from './components/livePreview';
+import generators from './utils/generatorConfig';
+import { SlideOver } from './components/slideComponent';
 export type StateProps = {
   filters: filtersReducerState
   generatedColors: generatedColors
@@ -20,8 +20,7 @@ export type StateProps = {
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const filtersState: StateProps = useSelector((state: StateProps) => state);
-  const livePreviewState = useSelector((state: RootState) => state.livePreview.livePreviewState);
-  const [selectedGenerator, setSelectedGenerator] = useState<Generator | null>(null);
+  const [selectedGenerator, setSelectedGenerator] = useState<Generator | null>(generators[0]);
 
 
   const handleSelectGenerator = (generator: Generator) => {
@@ -57,40 +56,17 @@ const App: React.FC = () => {
     dispatch(setColors(colors))
   }, [dispatch, selectedGenerator, filtersState.filters]);
   return (
-    <div className='md:min-h-screen h-full  lg:p-10'>
-      <div className='flex flex-row w-2/3'>
+    <div className='md:min-h-screen h-full bg-gray-100 '>
+      <div className='flex  w-full  rounded-lg  '>
 
-        <div className={`flex flex-col `}>
-
-          <div className="rounded-lg border shadow-sm p-4 " data-v0-t="card">
-
-            <div className="flex  p-6">
-              <div className='flex-col bg-gray-100 p-5 border rounded-md'>
-                <h3 className="text-lg ">Choose Generator</h3>
-
-                <GeneratorSelector onGeneratorSelect={handleSelectGenerator} />
-              </div>
-
-
-              <GeneratorOptions selectedGenerator={selectedGenerator}></GeneratorOptions>
-
-            </div>
-          </div>
-          <div className='flex  my-5'>
-            <div className='w-full rounded-lg border   bg-white lg:p-10'>
-              <h1 className=' text-3xl px-2 text-gray-500'>Generated Colors</h1>
-              {<ColorsView ></ColorsView>}
-            </div>
-
-          </div>
-        </div>
-        <div className='flex'>
-          <LivePreview></LivePreview>
-
-        </div>
+        <SlideOver >
+          <GeneratorSelector onGeneratorSelect={handleSelectGenerator} />
+          <GeneratorOptions selectedGenerator={selectedGenerator}></GeneratorOptions>
+        </SlideOver>
+        <ColorsView ></ColorsView>
+        <LivePreview></LivePreview>
 
       </div>
-
     </div>
   );
 };

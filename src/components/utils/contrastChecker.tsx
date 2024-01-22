@@ -43,16 +43,3 @@ export function getContrastRatio(color1: number[], color2: number[]): number {
     return contrastRatio // Limiting to 2 decimal places
 }
 
-// Example usage:
-const gradientColor1Hex: string = "#ff0000"; // Replace with your gradient color 1 in hex
-const gradientColor2Hex: string = "#0000ff"; // Replace with your gradient color 2 in hex
-const textColorHex: string = "#ffffff";      // Replace with your text color in hex
-
-const gradientColor1: number[] = hexToRgb(gradientColor1Hex);
-const gradientColor2: number[] = hexToRgb(gradientColor2Hex);
-const textColor: number[] = hexToRgb(textColorHex);
-
-const averageGradientColor: number[] = calculateAverageColor(gradientColor1, gradientColor2);
-
-const contrastRatio: number = getContrastRatio(averageGradientColor, textColor);
-console.log(`Contrast Ratio: ${contrastRatio}`);
