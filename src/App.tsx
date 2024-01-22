@@ -10,6 +10,9 @@ import {
   setColors
 } from './redux/features/colorGeneratorFeature/generatedColors';
 import { filtersReducerState } from './redux/features/colorGeneratorFeature/generatorFilters';
+import LivePreview from './components/livePreview';
+import generators from './utils/generatorConfig';
+import { SlideOver } from './components/slideComponent';
 export type StateProps = {
   filters: filtersReducerState
   generatedColors: generatedColors
@@ -17,16 +20,17 @@ export type StateProps = {
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const filtersState: StateProps = useSelector((state: StateProps) => state);
-  const [selectedGenerator, setSelectedGenerator] = useState<Generator | null>(null);
+  const [selectedGenerator, setSelectedGenerator] = useState<Generator | null>(generators[0]);
+
 
   const handleSelectGenerator = (generator: Generator) => {
     setSelectedGenerator(generator);
-    console.log("selectedGenerator", selectedGenerator)
 
     dispatch(setColors([]))
   };
 
-  // Replace this with your actual color generation logic
+
+
   const generateColors = (generator: Generator | null, options: filtersReducerState): any[] => {
     if (generator) {
       // Call the selected generator's function with the appropriate parameters
@@ -50,26 +54,18 @@ const App: React.FC = () => {
   useEffect(() => {
     const colors = generateColors(selectedGenerator, filtersState.filters)
     dispatch(setColors(colors))
-    console.log("state", filtersState.filters)
-    console.log("colors", colors)
   }, [dispatch, selectedGenerator, filtersState.filters]);
   return (
-    <div className='md:min-h-screen h-full  lg:p-10'>
-      <div className="rounded-lg border shadow-sm p-4" data-v0-t="card">
+    <div className='md:min-h-screen h-full bg-gray-100 '>
+      <div className='flex  w-full  rounded-lg  '>
 
-        <div className="flex p-6">
-          <div className='flex-col bg-gray-100 p-5 border rounded-md'>
-            <h3 className="text-lg font-semibold">Choose Generator</h3>
-            <GeneratorSelector onGeneratorSelect={handleSelectGenerator} />
-          </div>
+        <SlideOver >
+          <GeneratorSelector onGeneratorSelect={handleSelectGenerator} />
           <GeneratorOptions selectedGenerator={selectedGenerator}></GeneratorOptions>
-        </div>
-      </div>
-      <div className='flex  my-5'>
-        <div className='w-full rounded-lg border   bg-white lg:p-10'>
-          <h1 className='font-semibold text-3xl px-2 text-gray-500'>Generated Colors</h1>
-          <ColorsView ></ColorsView>
-        </div>
+        </SlideOver>
+        <ColorsView ></ColorsView>
+        <LivePreview></LivePreview>
+
       </div>
     </div>
   );

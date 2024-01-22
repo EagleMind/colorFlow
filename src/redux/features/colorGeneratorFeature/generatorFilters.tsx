@@ -1,4 +1,3 @@
-// colorStateSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Generator, GeneratorOption } from '../../../types';
 export type filtersReducerState = {
@@ -15,7 +14,7 @@ export type filtersReducerState = {
 
 
 const initialState: filtersReducerState = {
-    count: 0,
+    count: 2,
     lerp: 0,
     gradDirection: false,
     hue: 0,
@@ -61,7 +60,6 @@ export const filtersStateSlice = createSlice({
     },
 });
 
-// Export the actions
 export const {
     setCount,
     setLerp,
@@ -74,5 +72,4 @@ export const {
     setGenSingleColor,
 } = filtersStateSlice.actions;
 
-// Export the reducer as a named export
 export const filtersReducer = filtersStateSlice.reducer;

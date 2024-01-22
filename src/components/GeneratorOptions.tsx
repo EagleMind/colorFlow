@@ -70,15 +70,15 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
                 case 'baseColorTwo':
                     return <ColorPicker onChange={(color) => handleBaseColorTwo(color.hex)} hideAlpha={true} />;
                 case 'lerp':
-                    return <NumberSlider type="float" name="Linear interpolation" onDataSend={handleLerp} min={0} max={1} />;
+                    return <NumberSlider type="float" name="Gradient" onDataSend={handleLerp} min={0} max={1} />;
                 case 'count':
-                    return <NumberSlider type='int' name="Variations amount" onDataSend={handleCount} min={0} max={100} />;
+                    return <NumberSlider type='int' name="Variations" onDataSend={handleCount} min={2} max={100} />;
                 case 'direction':
                     return <SwitchComponent type="int" onDataSend={handleGradDirection} />;
                 case 'random':
                     return <SwitchComponent type="randomColors" onDataSend={handleGenSingleColor} />;
                 case 'hue':
-                    return <NumberSlider name="Hue" type="int" onDataSend={handleHue} min={0} max={360} />;
+                    return <NumberSlider name="Hue" type="int" onDataSend={handleHue} min={2} max={360} />;
                 case 'lightness':
                     return <NumberSlider name="Lightness" type="int" onDataSend={handleLightness} min={0} max={360} />;
                 case 'saturation':
@@ -92,17 +92,14 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
 
     return (
         props.selectedGenerator ? (
-            <div className="flex justify-start mx-5 px-5 rounded-md w-full">
-                {props.selectedGenerator?.name === "pastel" ? null : <div className='flex flex-col bg-gray-100 p-5 border rounded-md'>
-                    <h3 className="text-lg font-semibold ">Choose Colors</h3>
-                    <div className='flex my-2'>
-                        {naturalOptionSelector('baseColorOne')}
-                        {naturalOptionSelector('baseColorTwo')}
-                    </div>
-                </div>}
+            <div className="flex flex-col  rounded-md w-full">
+
+                <div className='flex justify-center my-2'>
+                    {naturalOptionSelector('baseColorOne')}
+                    {naturalOptionSelector('baseColorTwo')}
+                </div>
                 {props.selectedGenerator.name === "monochromatic" ? null : (
-                    <div className='flex flex-col bg-gray-100 p-5 border rounded-md md:w-1/3 mx-5'>
-                        <h3 className="text-lg font-semibold self-start ">Choose Options</h3>
+                    <div className='flex flex-col  p-5  rounded-md  mx-5 '>
                         {naturalOptionSelector('count')}
                         {naturalOptionSelector('hue')}
                         {naturalOptionSelector('lightness')}

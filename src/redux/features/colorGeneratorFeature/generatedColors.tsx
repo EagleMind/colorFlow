@@ -1,4 +1,3 @@
-// colorStateSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type generatedColors = {
@@ -19,8 +18,6 @@ export const colorStateSlice = createSlice({
     },
 });
 
-// Export the actions
 export const { setColors } = colorStateSlice.actions;
 
-// Export the reducer as a named export
 export const colorReducer = colorStateSlice.reducer;
