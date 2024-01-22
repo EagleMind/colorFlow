@@ -15,7 +15,7 @@ export type filtersReducerState = {
 
 
 const initialState: filtersReducerState = {
-    count: 0,
+    count: 2,
     lerp: 0,
     gradDirection: false,
     hue: 0,

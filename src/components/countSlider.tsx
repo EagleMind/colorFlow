@@ -8,7 +8,7 @@ interface ChildProps {
 }
 
 export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max, type, name }) => {
-    const [value, setValue] = useState(0);
+    const [value, setValue] = useState(min);
     useEffect(() => {
         if (onDataSend) {
             onDataSend(value);
@@ -20,8 +20,8 @@ export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max, type,
     };
 
     return (
-        <div className="flex items-center  rounded-md border p-2 my-2  min-w-full justify-between bg-white" >
-            <p >{name}</p>
+        <div className="flex items-center  rounded-md  p-2 my-2 w-full justify-between bg-gradient-to-r from-[#e29455] to-[#e26855] shadow-md" >
+            <p className='text-white mx-3' >{name}</p>
 
             <input
                 type="range"
@@ -29,11 +29,11 @@ export const NumberSlider: React.FC<ChildProps> = ({ onDataSend, min, max, type,
                 min={min}
 
                 max={max}
-                value={value}
+                value={value || min}
                 onChange={handleSliderChange}
-                className="appearance-none rounded-full h-2 bg-blue-200 outline-none"
+                className="appearance-none rounded-lg w-full h-2  outline-none slider "
             />
-            <p className="  text-center">{value.toFixed()}</p>
+            <p className="text-white mx-3 text-center">{value.toFixed()}</p>
 
         </div>
     );

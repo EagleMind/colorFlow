@@ -21,14 +21,13 @@ export const ColorsView: React.FC = () => {
     }
 
     const isGradient = isArrayOfObjects(colors);
-    if (!colors) {
-        return null
-    }
+
     return (
-        <div className={`flex flex-col lg:flex-row w-full flex-wrap justify-center`}>
+        <div className='flex  right-0 h-screen bg-white shadow-md rounded-lg w-2/3 flex-wrap m-3 overflow-y-auto'>
+
 
             {colors ? colors.map((color: any, index: number) => (
-                <figure className=" w-full lg:w-1/5 m-3" key={index}>
+                <figure className=" w-full lg:w-1/5 m-3  rounded-b-lg " key={index}>
                     <BrowserView>
                         <AspectRatio ratio={1 / 1}>
                             {isGradient ? (
@@ -41,7 +40,7 @@ export const ColorsView: React.FC = () => {
                                 <SingleColorView color={color} />
                             )}
                         </AspectRatio>
-                        <figcaption className="flex justify-center p-3 bg-slate-200 rounded-b-lg">
+                        <figcaption className="flex justify-center p-3 bg-white shadow-lg rounded-b-lg">
                             <span className="text-gray-500 text-sm">
                                 {isGradient
                                     ? `${color.from}–${color.to}`
@@ -70,7 +69,9 @@ export const ColorsView: React.FC = () => {
                         </figcaption>
                     </MobileView>
                 </figure >
-            )) : null}
+            )) : <div className='w-full rounded-lg   bg-white p-5'>
+                <h1 className=' text-[23px] px-2 text-gray-400 '>No options selected</h1>
+            </div>}
         </div>
     );
 };

@@ -19,17 +19,17 @@ const GeneratorSelector: React.FC<GeneratorSelectorProps> = ({ onGeneratorSelect
     };
 
     return (
-        <div>
+        <div className='flex flex-col mx-5' >
             <select
-                value={selectedGenerator?.name || ''}
+                value={selectedGenerator?.name}
                 onChange={handleGeneratorChange}
-                className='inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2'
+                className='inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-5 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-white border border-input bg-gradient-to-r from-[#e29455] to-[#e26855] hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2'
             >
-                <option value="" disabled>
-                    Select a generator
+                <option value={selectedGenerator?.name} disabled>
+                    {selectedGenerator?.name}
                 </option>
                 {generators.map((generator) => (
-                    <option key={generator.name} value={generator.name}>
+                    <option className='text-black ' key={generator.name} value={generator.name}>
                         {generator.name}
                     </option>
                 ))}
@@ -38,7 +38,6 @@ const GeneratorSelector: React.FC<GeneratorSelectorProps> = ({ onGeneratorSelect
             {selectedGenerator && (
                 <div>
                     <p>{selectedGenerator.description}</p>
-                    {/* You can render additional information about the selected generator here */}
                 </div>
             )}
         </div>
