@@ -9,11 +9,13 @@ This project provides utilities for generating color pairs based on different co
 
 ## Features
 
-- **Analogous Color Pairs:** Generate color pairs based on analogous color schemes with customizable parameters such as count, interpolation factor, shift angle, and direction.
+- **Analogous Color Pairs:**
 
-- **Pastel Color Pairs:** Generate pastel color pairs by adjusting the saturation of base colors and interpolating between them.
+- **Pastel Color Pairs:** 
 
-- **Color Conversion:** Utility functions for converting between different color representations (hex, RGB, HSL).
+- **Monochromatic Conversion:**
+
+- **Live Preview:** A feature that allows live previewing of the colors on a widget (like Card Component)
 
 ## Configuration
 
@@ -40,15 +42,14 @@ const pastelPairs = generatePastelPairs(5, 0.5, true);
 Clone the repository:
 
 ```
-git clone https://github.com/your-username/color-generation-project.git
-cd color-generation-project
+git clone https://github.com/your-username/colorFlow.git
+cd colorFlow
 npm install
 ```
 
 # Coming soon
 
-- Redux
-- Swith between types (analogous / pastel / monochromatic colors)
+- Will add more components for the live preview feature
 
 # On the long run
 
