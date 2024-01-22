@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import React from "react";
+import { useSelector } from 'react-redux';
 
 import {
     Gradient,
@@ -10,11 +10,7 @@ import AspectRatio from "./aspectRatio";
 import { RootState } from "../redux/store";
 
 export const ColorsView: React.FC = () => {
-    const dispatch = useDispatch();
     const colors: string[] = useSelector((state: RootState) => state.colorsGenerated.colors);
-
-    useEffect(() => {
-    }, [dispatch]);
 
     function isArrayOfObjects(colors: any): colors is { from: string; to: string }[] {
         return Array.isArray(colors) && colors.length > 0 && typeof colors[0] === 'object' && 'from' in colors[0] && 'to' in colors[0];
