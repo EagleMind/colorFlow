@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { ColorsView } from './components/pallet';
 import { GeneratorOptions } from './components/GeneratorOptions';
-import GeneratorSelector from './utils/colorUtils/ColorGeneratorSelector';
+import GeneratorSelector from './generators/colorUtils/ColorGeneratorSelector';
 import { Generator } from './types';
 import { useSelector, useDispatch } from 'react-redux';
 import { generatedColors } from './redux/features/colorGeneratorFeature/generatedColors';
@@ -11,7 +11,7 @@ import {
 } from './redux/features/colorGeneratorFeature/generatedColors';
 import { filtersReducerState } from './redux/features/colorGeneratorFeature/generatorFilters';
 import LivePreview from './components/livePreview';
-import generators from './utils/generatorConfig';
+import generators from './generators/generatorConfig';
 import { SlideOver } from './components/slideComponent';
 export type StateProps = {
   filters: filtersReducerState
