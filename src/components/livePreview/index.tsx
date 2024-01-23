@@ -4,13 +4,25 @@ import { RootState } from '../../redux/store';
 import Banner from './previewComponents/banner';
 import ContrastChecker from '../contrastChecker';
 import ColorPicker from 'react-pick-color';
+import { DebouncedPicker } from '../debouncedPicker';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
 
 
 export default function LivePreview() {
     const livePreviewState = useSelector((state: RootState) => state.livePreview);
     const [textColor, setTextColor] = useState("white")
+    const [copyHexColor, setCopy] = useState<boolean>(false)
     const handleTextColor = (color: string) => {
         setTextColor(color)
+    }
+    const copyHex = () => {
+        navigator.clipboard.writeText(textColor)
+        setCopy(true)
+        setTimeout(() => {
+            setCopy(false)
+        }, 2000)
     }
 
     return (
@@ -44,8 +56,12 @@ export default function LivePreview() {
                     <div className='flex items-center rounded-lg shadow-sm my-3'>
                         <ContrastChecker assets={livePreviewState.assets} textColor={textColor}></ContrastChecker>
                         <div className='flex flex-col justify-center'>
-                            <h1 className='  text-gray-500 my-3'>Change text color</h1>
-                            <ColorPicker onChange={(color) => handleTextColor(color.hex)} hideAlpha={true} />
+                            <h1 className='  text-gray-500 my-3'>Text color</h1>
+                            <DebouncedPicker color={textColor} onChange={(color) => handleTextColor(color)} />
+                            <div className='flex items-center justify-center bg-gray-200 rounded-lg p-3  mt-3'>
+                                {copyHexColor ? <FontAwesomeIcon icon={faCheck} fontSize={20} color='grey' className='cursor-pointer'></FontAwesomeIcon> : <FontAwesomeIcon icon={faCopy} fontSize={20} color='grey' className='cursor-pointer' onClick={copyHex} />}
+                                <p className="text-sm text-gray-500 dark:text-gray-400 ml-3">{textColor}</p>
+                            </div>
 
                         </div>
 

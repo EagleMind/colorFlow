@@ -91,7 +91,7 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
                 case 'baseColorOne':
                     return <div className='flex flex-col items-center'>
                         <DebouncedPicker color={BaseColorOne} onChange={(color) => handleBaseColorOne(color)} />
-                        <div className='flex items-center bg-gray-200 rounded-lg p-3  mt-3'>
+                        <div className='flex items-center justify-center bg-gray-200 rounded-lg p-3 w-full mt-3'>
                             {isBaseColorOneClicked ? <FontAwesomeIcon icon={faCheck} fontSize={20} color='grey' className='cursor-pointer'></FontAwesomeIcon> : <FontAwesomeIcon icon={faCopy} fontSize={20} color='grey' className='cursor-pointer' onClick={handleCopyBaseColorOne} />}
                             <p className="text-sm text-gray-500 dark:text-gray-400 ml-3">{BaseColorOne}</p>
                         </div>
