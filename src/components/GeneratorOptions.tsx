@@ -1,5 +1,5 @@
 // GeneratorOptions.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
     setCount,
@@ -16,7 +16,10 @@ import { NumberSlider } from './countSlider';
 import { SwitchComponent } from './utils/switcher';
 import ColorPicker from 'react-pick-color';
 import { Generator } from '../types';
-
+import { DebouncedPicker } from "./debouncedPicker";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 type Props = {
     selectedGenerator: Generator | null;
 };
@@ -24,8 +27,10 @@ type Props = {
 export const GeneratorOptions: React.FC<Props> = (props) => {
 
     const dispatch = useDispatch();
-
-
+    const [BaseColorOne, setColorOne] = useState<string>("#aabbcc");
+    const [BaseColorTwo, setColorTwo] = useState<string>("#aabbcc");
+    const [isBaseColorOneClicked, setIsBaseColorOneClicked] = useState(false)
+    const [isBaseColorTwoClicked, setIsBaseColorTwoClicked] = useState(false)
     const handleCount = (count: number) => {
         dispatch(setCount(count));
     };
@@ -52,23 +57,54 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
 
     const handleBaseColorOne = (color: string) => {
         dispatch(selectBaseColorOne(color));
+        setColorOne(color)
     };
 
     const handleBaseColorTwo = (color: string) => {
         dispatch(selectBaseColorTwo(color));
+        setColorTwo(color)
+
     };
 
     const handleGenSingleColor = (genSingleColor: boolean) => {
         dispatch(setGenSingleColor(genSingleColor));
     };
+    const handleCopyBaseColorOne = () => {
+        navigator.clipboard.writeText(BaseColorOne)
+        setIsBaseColorOneClicked(true)
+        setTimeout(() => {
+            setIsBaseColorOneClicked(false)
+        }, 2000)
+    }
+
+    const handleCopyBaseColorTwo = () => {
+        navigator.clipboard.writeText(BaseColorOne)
+        setIsBaseColorTwoClicked(true)
+        setTimeout(() => {
+            setIsBaseColorTwoClicked(false)
+        }, 2000)
+    }
 
     const naturalOptionSelector = (currentFilter: string) => {
         if (currentFilter && props.selectedGenerator?.parameters.includes(currentFilter)) {
             switch (currentFilter) {
                 case 'baseColorOne':
-                    return <ColorPicker className='mr-2' onChange={(color) => handleBaseColorOne(color.hex)} hideAlpha={true} />;
+                    return <div className='flex flex-col items-center'>
+                        <DebouncedPicker color={BaseColorOne} onChange={(color) => handleBaseColorOne(color)} />
+                        <div className='flex items-center bg-gray-200 rounded-lg p-3  mt-3'>
+                            {isBaseColorOneClicked ? <FontAwesomeIcon icon={faCheck} fontSize={20} color='grey' className='cursor-pointer'></FontAwesomeIcon> : <FontAwesomeIcon icon={faCopy} fontSize={20} color='grey' className='cursor-pointer' onClick={handleCopyBaseColorOne} />}
+                            <p className="text-sm text-gray-500 dark:text-gray-400 ml-3">{BaseColorOne}</p>
+                        </div>
+
+                    </div>;
                 case 'baseColorTwo':
-                    return <ColorPicker onChange={(color) => handleBaseColorTwo(color.hex)} hideAlpha={true} />;
+                    return <div className='flex flex-col items-center'>
+                        <DebouncedPicker color={BaseColorTwo} onChange={(color) => handleBaseColorTwo(color)} />
+                        <div className='flex items-center bg-gray-200 rounded-lg p-3  mt-3'>
+                            {isBaseColorTwoClicked ? <FontAwesomeIcon icon={faCheck} fontSize={20} color='grey' className='cursor-pointer'></FontAwesomeIcon> : <FontAwesomeIcon icon={faCopy} fontSize={20} color='grey' className='cursor-pointer' onClick={handleCopyBaseColorTwo} />}
+                            <p className="text-sm text-gray-500 dark:text-gray-400 ml-3">{BaseColorTwo}</p>
+                        </div>
+                    </div>;
                 case 'lerp':
                     return <NumberSlider type="float" name="Gradient" onDataSend={handleLerp} min={0} max={1} />;
                 case 'count':
@@ -94,9 +130,15 @@ export const GeneratorOptions: React.FC<Props> = (props) => {
         props.selectedGenerator ? (
             <div className="flex flex-col  rounded-md w-full">
 
+
                 <div className='flex justify-center my-2'>
-                    {naturalOptionSelector('baseColorOne')}
-                    {naturalOptionSelector('baseColorTwo')}
+                    <div className='flex flex-col items-center'>
+                        {naturalOptionSelector('baseColorOne')}
+                    </div>
+
+                    <div className='flex flex-col items-center'>
+                        {naturalOptionSelector('baseColorTwo')}
+                    </div>
                 </div>
                 {props.selectedGenerator.name === "monochromatic" ? null : (
                     <div className='flex flex-col  p-5  rounded-md  mx-5 '>
