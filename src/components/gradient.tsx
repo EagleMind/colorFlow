@@ -6,6 +6,7 @@ import { setLivePreviewState, setAssets } from '../redux/features/livePreview'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/store'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export interface GradientProps {
     from: string
@@ -21,26 +22,27 @@ export const Gradient = ({ from, to, angle }: GradientProps) => {
     const livePreviewState = useSelector((state: RootState) => state.livePreview.livePreviewState);
 
     const dispatch = useDispatch();
-    const [isClicked, setIsClicked] = useState(false)
+    const [isTailwindClicked, setIsTailwindClicked] = useState(false)
+    const [isCSSCopied, setIsCSSCopied] = useState(false)
 
     const handleCopyCSS = () => {
         navigator.clipboard.writeText(
             `background: "linear-gradient(${angle}deg, ${from}, ${to})`
         )
-        setIsClicked(true)
+        setIsCSSCopied(true)
 
         setTimeout(() => {
-            setIsClicked(false)
+            setIsCSSCopied(false)
         }, 1000)
     }
     const handleCopyTailWindcss = () => {
         navigator.clipboard.writeText(
             `bg-gradient-to-r from-[${from} to-[${to}]`
         )
-        setIsClicked(true)
+        setIsTailwindClicked(true)
 
         setTimeout(() => {
-            setIsClicked(false)
+            setIsTailwindClicked(false)
         }, 1000)
     }
 
@@ -56,12 +58,11 @@ export const Gradient = ({ from, to, angle }: GradientProps) => {
             className=' cursor-pointer relative  gradient-box rounded-t-lg '
             style={{
                 backgroundImage: `linear-gradient(${angle}deg, ${from}, ${to})`,
-                border: isClicked ? '2px solid #4299e1' : 'none'
             }}
         >
             <div className='absolute  flex-col  w-full h-full transition-opacity duration-300  opacity-0 hover:opacity-100  my-2 top-0 left-0 right-0 bottom-0 flex items-center justify-center '>
                 <div onClick={handleCopyCSS} className='  items-center flex  justify-center  my-2 transition ease-in-out delay-0  hover:-translate-y-1 hover:scale-110  duration-300'>
-                    <FontAwesomeIcon icon={faCopy} fontSize={15} color='white' />
+                    {isCSSCopied ? <FontAwesomeIcon icon={faCheck} fontSize={20} color='white' className='cursor-pointer'></FontAwesomeIcon> : <FontAwesomeIcon icon={faCopy} fontSize={20} color='white' className='cursor-pointer' />}
                     <span
                         className='mx-3 text-white'
                         style={{ color: getTextColor(from.toString()) }}
@@ -70,7 +71,7 @@ export const Gradient = ({ from, to, angle }: GradientProps) => {
                     </span>{' '}
                 </div>
                 <div onClick={handleCopyTailWindcss} className=' items-center flex  justify-center my-2 transition ease-in-out delay-0  hover:-translate-y-1 hover:scale-110  duration-300'>
-                    <FontAwesomeIcon icon={faCopy} fontSize={15} color='white' />
+                    {isTailwindClicked ? <FontAwesomeIcon icon={faCheck} fontSize={20} color='white' className='cursor-pointer'></FontAwesomeIcon> : <FontAwesomeIcon icon={faCopy} fontSize={20} color='white' className='cursor-pointer' />}
                     <span
                         className='mx-3  '
                         style={{ color: getTextColor(from.toString()) }}
