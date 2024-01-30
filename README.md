@@ -60,6 +60,9 @@ npm install
 - will automate the usage between designers & devs (eg: tailwind config generation)
 - will setup authentication & rating to build a community dynamic over the solution
 
+# Medium writeup:
+[Medium Link](https://medium.com/@hassen.ben.mbarek/how-i-built-colorflow-20569407086d)
+
 # For collaboration :
 
 contact: hassen.ben.mbarek@gmail.com
